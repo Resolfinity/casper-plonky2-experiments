@@ -28,3 +28,8 @@ hex = "0.4"
 [[bin]]
 name = "1sha"
 path = "src/bin/1sha.rs"
+
+
+[[bin]]
+name = "700sha"
+path = "src/bin/700sha.rs"
