@@ -3,6 +3,6 @@
 to run specific code, use command like this:
 
 ```
-cargo run --bin sha256
+cargo run --bin 1sha
 ```
 
