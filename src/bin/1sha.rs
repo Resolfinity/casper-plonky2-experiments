@@ -6,6 +6,7 @@ use plonky2::iop::witness::{PartialWitness, Witness};
 use plonky2::plonk::circuit_builder::CircuitBuilder;
 use plonky2::plonk::circuit_data::CircuitConfig;
 use plonky2::plonk::config::{GenericConfig, PoseidonGoldilocksConfig};
+use std::time::Instant;
 
 const EXPECTED_RES: [u8; 256] = [
     0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1,
@@ -33,6 +34,7 @@ pub fn array_to_bits(bytes: &[u8]) -> Vec<bool> {
 /// An example of using Plonky2 to prove a statement of the form
 /// "I know x² - 4x + 7".
 fn main() -> Result<()> {
+    let start = Instant::now(); // Start timing
     let mut msg = vec![0; 128 as usize];
     for i in 0..127 {
         msg[i] = i as u8;
@@ -62,5 +64,21 @@ fn main() -> Result<()> {
     let data = builder.build::<C>();
     let proof = data.prove(pw).unwrap();
 
-    data.verify(proof)
+    let proof_ready_checkpint = Instant::now();
+
+    let result = data.verify(proof);
+
+    let end = Instant::now(); // Measure the time elapsed
+
+    // Print the duration in seconds
+    println!(
+        "Time from start to proof_ready_checkpint: {:.2} seconds",
+        proof_ready_checkpint.duration_since(start).as_secs_f64()
+    );
+    println!(
+        "Total execution time: {:.2} seconds",
+        end.duration_since(start).as_secs_f64()
+    );
+
+    result
 }
