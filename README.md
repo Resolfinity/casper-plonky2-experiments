@@ -3,6 +3,5 @@
 to run specific code, use command like this:
 
 ```
-cargo run --bin 1sha
+RUSTFLAGS=-Ctarget-cpu=nacd ^Cve cargo run --release --bin 700sha
 ```
-
