@@ -1,0 +1,15 @@
+[package]
+name = "casper-experiments"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+plonky2 = "0.1.4"
+anyhow = "1.0.79"
+
+[dev-dependencies]
+hex = "0.4"
+
+[[bin]]
+name = "sha256"
+path = "src/bin/sha256.rs"
